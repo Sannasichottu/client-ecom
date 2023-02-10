@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment } from "react"
+import MetaData from "./layouts/MetaData"
 
 export default function Home () {
     return (
 
         <Fragment>
+          <MetaData title={'Buy Best products'} />
             <h1 id="products_heading">Latest Products</h1>
                 <section id="products" className="container mt-5">
                     <div className="row">
