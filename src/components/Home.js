@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { getProducts } from "../actions/productsActions";
 import { Loader } from "./layouts/Loader";
 import MetaData from "./layouts/MetaData";
@@ -7,11 +8,18 @@ import Product from "./product/Product";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { products, loading } = useSelector((state) => state.productsState);
+  const { products, loading, error } = useSelector(
+    (state) => state.productsState
+  );
 
   useEffect(() => {
+    if (error) {
+      return toast.error(error, {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+    }
     dispatch(getProducts);
-  }, []);
+  }, [error]);
 
   return (
     <Fragment>

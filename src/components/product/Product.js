@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 export default function Product({ product }) {
   return (
     <div className="col-sm-12 col-md-6 col-lg-3 my-3">
@@ -9,7 +10,7 @@ export default function Product({ product }) {
         />
         <div className="card-body d-flex flex-column">
           <h5 className="card-title">
-            <a href="">{product.name}</a>
+            <a href="#">{product.name}</a>
           </h5>
           <div className="ratings mt-auto">
             <div className="rating-outer">
