@@ -21,6 +21,7 @@ export default function ProductSearch() {
   const [price, setPrice] = useState([1, 1000]);
   const [priceChanged, setPriceChanged] = useState(price);
   const [category, setCategory] = useState(null);
+  const [rating, setRating] = useState(0);
 
   const { keyword } = useParams();
 
@@ -49,8 +50,8 @@ export default function ProductSearch() {
         position: toast.POSITION.BOTTOM_CENTER,
       });
     }
-    dispatch(getProducts(keyword, priceChanged, category, currentPage));
-  }, [error, dispatch, currentPage, keyword, priceChanged, category]);
+    dispatch(getProducts(keyword, priceChanged, category, rating, currentPage));
+  }, [error, dispatch, currentPage, keyword, priceChanged, category, rating]);
 
   return (
     <Fragment>
@@ -103,6 +104,30 @@ export default function ProductSearch() {
                         }}
                       >
                         {category}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <hr className="my-5" />
+                {/* Ratings Filter */}
+                <div className="mt-5">
+                  <h4 className="mb-3">Ratings</h4>
+                  <ul className="pl-0">
+                    {[5, 4, 3, 2, 1].map((star) => (
+                      <li
+                        style={{ cursor: "pointer", listStyleType: "none" }}
+                        key={star}
+                        onClick={() => {
+                          setRating(star);
+                        }}
+                      >
+                        <div className="rating-outer">
+                          <div
+                            className="rating-inner"
+                            style={{ width: `${star * 20}%` }}
+                          ></div>
+                        </div>
                       </li>
                     ))}
                   </ul>
