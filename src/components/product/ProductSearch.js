@@ -1,17 +1,20 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { getProducts } from "../actions/productsActions";
-import { Loader } from "./layouts/Loader";
-import MetaData from "./layouts/MetaData";
-import Product from "./product/Product";
+import { getProducts } from "../../actions/productsActions";
+import { Loader } from "../layouts/Loader";
+import MetaData from "../layouts/MetaData";
+import Product from "../product/Product";
 import Pagination from "react-js-pagination";
+import { useParams } from "react-router-dom";
 
-export default function Home() {
+export default function ProductSearch() {
   const dispatch = useDispatch();
   const { products, loading, error, productsCount, resPerPage } = useSelector(
     (state) => state.productsState
   );
+
+  const { keyword } = useParams();
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -25,8 +28,8 @@ export default function Home() {
         position: toast.POSITION.BOTTOM_CENTER,
       });
     }
-    dispatch(getProducts(null, currentPage));
-  }, [error, dispatch, currentPage]);
+    dispatch(getProducts(keyword, currentPage));
+  }, [error, dispatch, currentPage, keyword]);
 
   return (
     <Fragment>
@@ -35,7 +38,7 @@ export default function Home() {
       ) : (
         <Fragment>
           <MetaData title={"Buy Best products"} />
-          <h1 id="products_heading">Latest Products</h1>
+          <h1 id="products_heading">Search Products</h1>
           <section id="products" className="container mt-5">
             <div className="row">
               {products &&
