@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { getProducts } from "../../actions/productsActions";
+import { getProducts } from "../../actions/productActions";
 import { Loader } from "../layouts/Loader";
 import MetaData from "../layouts/MetaData";
 import Product from "../product/Product";
