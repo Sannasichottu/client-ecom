@@ -37,6 +37,7 @@ export default function Header() {
               <figure className="avatar avatar-nav">
                 <Image
                   width="50px"
+                  style={{ borderRadius: "25%" }}
                   src={user.avatar ?? "./images/default_avatar.png"}
                 />
               </figure>
