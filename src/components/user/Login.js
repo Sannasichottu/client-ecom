@@ -34,7 +34,7 @@ export default function Login() {
       });
       return;
     }
-  }, [error, isAuthenticated, dispatch]);
+  }, [error, isAuthenticated, dispatch, navigate]);
 
   return (
     <Fragment>
@@ -65,9 +65,9 @@ export default function Login() {
               />
             </div>
 
-            <a href="#" className="float-right mb-4">
+            <Link to="/password/forgot" className="float-right mb-4">
               Forgot Password?
-            </a>
+            </Link>
 
             <button
               id="login_button"

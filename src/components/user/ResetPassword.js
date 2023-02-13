@@ -1,36 +1,34 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import {
-  clearAuthError,
-  updatePassword as updatePasswordAction,
-} from "../../actions/userActions";
+import { clearAuthError, resetPassword } from "../../actions/userActions";
 
-export default function UpdatePassword() {
+export default function ResetPassword() {
   const [password, setPassword] = useState("");
-  const [oldPassword, setOldPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const dispatch = useDispatch();
-
-  const { isUpdated, error } = useSelector((state) => state.authState);
+  const { isAutheticated, error } = useSelector((state) => state.authState);
+  const navigate = useNavigate();
+  const { token } = useParams();
 
   const submitHandler = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("oldPassword", oldPassword);
     formData.append("password", password);
-    dispatch(updatePasswordAction(formData));
+    formData.append("confirmPassword", confirmPassword);
+
+    dispatch(resetPassword(formData, token));
   };
 
   useEffect(() => {
-    if (isUpdated) {
-      toast("Password updated successfully", {
+    if (isAutheticated) {
+      toast("Password Reset Success!", {
         type: "success",
         position: toast.POSITION.BOTTOM_CENTER,
       });
-      setOldPassword("");
-      setPassword("");
-
+      navigate("/");
       return;
     }
 
@@ -44,37 +42,42 @@ export default function UpdatePassword() {
       });
       return;
     }
-  }, [isUpdated, error, dispatch]);
+  }, [isAutheticated, error, dispatch, navigate]);
 
   return (
     <div className="row wrapper">
       <div className="col-10 col-lg-5">
         <form onSubmit={submitHandler} className="shadow-lg">
-          <h1 className="mt-2 mb-5">Update Password</h1>
-          <div className="form-group">
-            <label htmlFor="old_password_field">Old Password</label>
-            <input
-              type="password"
-              id="old_password_field"
-              className="form-control"
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
-            />
-          </div>
+          <h1 className="mb-3">New Password</h1>
 
           <div className="form-group">
-            <label htmlFor="new_password_field">New Password</label>
+            <label htmlFor="password_field">Password</label>
             <input
               type="password"
-              id="new_password_field"
+              id="password_field"
               className="form-control"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <button type="submit" className="btn update-btn btn-block mt-4 mb-3">
-            Update Password
+          <div className="form-group">
+            <label htmlFor="confirm_password_field">Confirm Password</label>
+            <input
+              type="password"
+              id="confirm_password_field"
+              className="form-control"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+
+          <button
+            id="new_password_button"
+            type="submit"
+            className="btn btn-block py-3"
+          >
+            Set Password
           </button>
         </form>
       </div>
