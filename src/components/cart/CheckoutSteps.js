@@ -17,6 +17,20 @@ export default function CheckoutSteps({ shipping, confirmOrder, payment }) {
         </Link>
       )}
 
+      {confirmOrder ? (
+        <Link to="/order/confirm">
+          <div className="triangle2-active"></div>
+          <div className="step active-step">Confirm Order</div>
+          <div className="triangle-active"></div>
+        </Link>
+      ) : (
+        <Link to="/order/confirm">
+          <div className="triangle2-incomplete"></div>
+          <div className="step incomplete">Confirm Order</div>
+          <div className="triangle-incomplete"></div>
+        </Link>
+      )}
+
       {payment ? (
         <Link to="/payment">
           <div className="triangle2-active"></div>
@@ -27,20 +41,6 @@ export default function CheckoutSteps({ shipping, confirmOrder, payment }) {
         <Link to="/payment">
           <div className="triangle2-incomplete"></div>
           <div className="step incomplete">Payment</div>
-          <div className="triangle-incomplete"></div>
-        </Link>
-      )}
-
-      {confirmOrder ? (
-        <Link to="/order/confirmOrder">
-          <div className="triangle2-active"></div>
-          <div className="step active-step">Confirm Order</div>
-          <div className="triangle-active"></div>
-        </Link>
-      ) : (
-        <Link to="/order/confirmOrder">
-          <div className="triangle2-incomplete"></div>
-          <div className="step incomplete">Shipping Info</div>
           <div className="triangle-incomplete"></div>
         </Link>
       )}

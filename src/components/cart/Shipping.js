@@ -3,8 +3,25 @@ import { Fragment } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { saveShippingInfo } from "../../slices/cartSlice";
 import CheckoutSteps from "./CheckoutSteps";
+
+export const validateShipping = (shippingInfo, navigate) => {
+  if (
+    !shippingInfo.address ||
+    !shippingInfo.city ||
+    !shippingInfo.state ||
+    !shippingInfo.country ||
+    !shippingInfo.postalCode ||
+    !shippingInfo.phoneNo
+  ) {
+    toast.error("Please fill the shipping", {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+    navigate("/shipping");
+  }
+};
 
 export default function Shipping() {
   const { shippingInfo } = useSelector((state) => state.cartState);
@@ -24,7 +41,7 @@ export default function Shipping() {
     dispatch(
       saveShippingInfo({ address, city, phoneNo, postalCode, country, state })
     );
-    navigate("/order/confim");
+    navigate("/order/confirm");
   };
 
   return (
