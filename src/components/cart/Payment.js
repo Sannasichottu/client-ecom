@@ -11,7 +11,9 @@ import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { createOrder } from "../../actions/orderActions";
 import { orderCompleted } from "../../slices/cartSlice";
+import { clearError as clearOrderError } from "../../slices/orderSlice";
 import { validateShipping } from "./Shipping";
 
 export default function Payment() {
@@ -24,6 +26,7 @@ export default function Payment() {
   const { items: cartItems, shippingInfo } = useSelector(
     (state) => state.cartState
   );
+  const { error: orderError } = useSelector((state) => state.orderState);
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
@@ -54,6 +57,15 @@ export default function Payment() {
 
   useEffect(() => {
     validateShipping(shippingInfo, navigate);
+    if (orderError) {
+      toast(orderError, {
+        position: toast.POSITION.BOTTOM_CENTER,
+        type: "error",
+        onOpen: () => {
+          dispatch(clearOrderError());
+        },
+      });
+    }
   });
 
   const submitHandler = async (e) => {
@@ -83,7 +95,12 @@ export default function Payment() {
             type: "success",
             position: toast.POSITION.BOTTOM_CENTER,
           });
+          order.paymentInfo = {
+            id: result.paymentIntent.id,
+            status: result.paymentIntent.status,
+          };
           dispatch(orderCompleted());
+          dispatch(createOrder(order));
           navigate("/order/success");
         } else {
           toast("Please Try again!", {

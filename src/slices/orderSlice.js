@@ -18,7 +18,7 @@ const orderSlice = createSlice({
       return {
         ...state,
         loading: false,
-        orderDetail: action.payload,
+        orderDetail: action.payload.order,
       };
     },
     createOrderFail(state, action) {
@@ -28,12 +28,22 @@ const orderSlice = createSlice({
         error: action.payload,
       };
     },
+    clearError(state, action) {
+      return {
+        ...state,
+        error: null,
+      };
+    },
   },
 });
 
 const { actions, reducer } = orderSlice;
 
-export const { createOrderFail, createOrderRequest, createOrderSuccess } =
-  actions;
+export const {
+  createOrderFail,
+  createOrderRequest,
+  createOrderSuccess,
+  clearError,
+} = actions;
 
 export default reducer;
