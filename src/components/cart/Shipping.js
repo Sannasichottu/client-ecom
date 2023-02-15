@@ -24,7 +24,7 @@ export const validateShipping = (shippingInfo, navigate) => {
 };
 
 export default function Shipping() {
-  const { shippingInfo } = useSelector((state) => state.cartState);
+  const { shippingInfo = {} } = useSelector((state) => state.cartState);
   const [address, setAddress] = useState(shippingInfo.address);
   const [city, setCity] = useState(shippingInfo.city);
   const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
@@ -76,7 +76,7 @@ export default function Shipping() {
             </div>
 
             <div className="form-group">
-              <label htmlhtmlFor="phone_field">Phone No</label>
+              <label htmlFor="phone_field">Phone No</label>
               <input
                 type="phone"
                 id="phone_field"

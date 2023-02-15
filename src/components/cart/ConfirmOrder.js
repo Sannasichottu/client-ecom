@@ -35,7 +35,7 @@ export default function ConfirmOrder() {
 
   useEffect(() => {
     validateShipping(shippingInfo, navigate);
-  }, []);
+  }, [navigate, shippingInfo]);
   return (
     <Fragment>
       <MetaData title={"Confirm Order"} />
