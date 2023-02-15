@@ -53,6 +53,14 @@ export default function Header() {
               >
                 Profile
               </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => {
+                  navigate("/orders");
+                }}
+                className="dark"
+              >
+                My Orders
+              </Dropdown.Item>
               <Dropdown.Item onClick={logoutHandler} className="text-danger">
                 Logout
               </Dropdown.Item>

@@ -34,6 +34,46 @@ const orderSlice = createSlice({
         error: null,
       };
     },
+    userOrdersRequest(state, action) {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    userOrdersSuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        userOrders: action.payload.orders,
+      };
+    },
+    userOrdersFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    },
+    orderDetailRequest(state, action) {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    orderDetailSuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        orderDetail: action.payload.order,
+      };
+    },
+    orderDetailFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    },
   },
 });
 
@@ -44,6 +84,12 @@ export const {
   createOrderRequest,
   createOrderSuccess,
   clearError,
+  userOrdersFail,
+  userOrdersRequest,
+  userOrdersSuccess,
+  orderDetailFail,
+  orderDetailRequest,
+  orderDetailSuccess,
 } = actions;
 
 export default reducer;
