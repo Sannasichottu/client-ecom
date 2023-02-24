@@ -61,7 +61,10 @@ const productSlice = createSlice({
       };
     },
     clearProduct(state, action) {
-      return { ...state, product: {} };
+      return {
+        ...state,
+        product: {},
+      };
     },
   },
 });

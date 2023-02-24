@@ -83,10 +83,10 @@ export default function ProductDetail() {
     if (!product._id || isReviewSubmitted) {
       dispatch(getProduct(id));
     }
-
+    /*
     return () => {
       dispatch(clearProduct());
-    };
+    }; */
   }, [dispatch, error, id, isReviewSubmitted, product._id]);
   return (
     <Fragment>
