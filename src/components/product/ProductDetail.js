@@ -11,7 +11,7 @@ import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import {
   clearError,
-  clearProduct,
+  //clearProduct,
   clearReviewSubmitted,
 } from "../../slices/productSlice";
 import ProductReview from "./ProductReview";
