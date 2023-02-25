@@ -12,6 +12,9 @@ import {
   createReviewFail,
   createReviewRequest,
   createReviewSuccess,
+  newProductFail,
+  newProductRequest,
+  newProductSuccess,
   productFail,
   productRequest,
   productSuccess,
@@ -83,5 +86,15 @@ export const getAdminProducts = async (dispatch) => {
     dispatch(adminProductsSuccess(data));
   } catch (error) {
     dispatch(adminProductsFail(error.response.data.message));
+  }
+};
+
+export const createNewProduct = (productData) => async (dispatch) => {
+  try {
+    dispatch(newProductRequest());
+    const { data } = await axios.post(`/api/v1/admin/product/new`, productData);
+    dispatch(newProductSuccess(data));
+  } catch (error) {
+    dispatch(newProductFail(error.response.data.message));
   }
 };
