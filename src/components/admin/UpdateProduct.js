@@ -87,6 +87,7 @@ export default function UpdateProduct() {
         onOpen: () => dispatch(clearProductUpdated()),
       });
       //navigate("/admin/products");
+      setImages([]);
       return;
     }
 
