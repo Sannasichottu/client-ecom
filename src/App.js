@@ -30,9 +30,11 @@ import OrderSuccess from "./components/cart/OrderSuccess";
 import UserOrders from "./components/order/UserOrder";
 import OrderDetail from "./components/order/OrderDetail";
 import Dashboard from "./components/admin/Dashboard";
-import ProductList from "./components/admin/productList";
+import ProductList from "./components/admin/ProductList";
 import NewProduct from "./components/admin/NewProduct";
 import UpdateProduct from "./components/admin/UpdateProduct";
+import OrderList from "./components/admin/OrderList";
+import UpdateOrder from "./components/admin/UpdateOrder";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -178,6 +180,22 @@ function App() {
               element={
                 <ProtectedRoute isAdmin={true}>
                   <UpdateProduct />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/orders"
+              element={
+                <ProtectedRoute isAdmin={true}>
+                  <OrderList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/order/:id"
+              element={
+                <ProtectedRoute isAdmin={true}>
+                  <UpdateOrder />
                 </ProtectedRoute>
               }
             />
