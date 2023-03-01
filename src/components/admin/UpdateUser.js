@@ -17,6 +17,7 @@ export default function UpdateUser() {
   const { loading, isUserUpdated, error, user } = useSelector(
     (state) => state.userState
   );
+  const { user: authUser } = useSelector((state) => state.authState);
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
@@ -94,6 +95,7 @@ export default function UpdateUser() {
               <div className="form-group">
                 <label htmlFor="category_field">Role</label>
                 <select
+                  disabled={user._id === authUser._id}
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
                   className="form-control"
