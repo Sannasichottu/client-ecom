@@ -1,11 +1,15 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { adminOrdersAction } from "../../actions/orderActions";
 import { getAdminProducts } from "../../actions/productActions";
+import { getUsers } from "../../actions/userActions";
 import Sidebar from "./Sidebar";
 
 export default function Dashboard() {
   const { products = [] } = useSelector((state) => state.productsState);
+  const { adminOrders = [] } = useSelector((state) => state.orderState);
+  const { users = [] } = useSelector((state) => state.userState);
   const dispatch = useDispatch();
   let outOfStack = 0;
 
@@ -17,8 +21,17 @@ export default function Dashboard() {
     });
   }
 
+  let totalAmount = 0;
+  if (adminOrders.length > 0) {
+    adminOrders.forEach((order) => {
+      totalAmount += order.totalPrice;
+    });
+  }
+
   useEffect(() => {
     dispatch(getAdminProducts);
+    dispatch(getUsers);
+    dispatch(adminOrdersAction);
   }, [dispatch]);
   return (
     <div className="row">
@@ -33,7 +46,7 @@ export default function Dashboard() {
               <div className="card-body">
                 <div className="text-center card-font-size">
                   Total Amount
-                  <br /> <b>$3425</b>
+                  <br /> <b>$ {totalAmount}</b>
                 </div>
               </div>
             </div>
@@ -66,7 +79,7 @@ export default function Dashboard() {
               <div className="card-body">
                 <div className="text-center card-font-size">
                   Orders
-                  <br /> <b>345</b>
+                  <br /> <b>{adminOrders.length}</b>
                 </div>
               </div>
               <Link
@@ -86,12 +99,12 @@ export default function Dashboard() {
               <div className="card-body">
                 <div className="text-center card-font-size">
                   Users
-                  <br /> <b>55</b>
+                  <br /> <b>{users.length} </b>
                 </div>
               </div>
               <Link
                 className="card-footer text-white clearfix small z-1"
-                href="/admin/users"
+                to="/admin/users"
               >
                 <span className="float-left">View Details</span>
                 <span className="float-right">
